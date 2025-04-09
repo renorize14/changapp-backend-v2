@@ -1,12 +1,14 @@
 package cl.changapp.config;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import cl.changapp.entity.related.User;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 public class UserDetailsImpl implements UserDetails {
 
@@ -23,7 +25,7 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // Si más adelante agregas roles, puedes retornar una lista de authorities aquí
-        return Collections.emptyList();
+    	return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override

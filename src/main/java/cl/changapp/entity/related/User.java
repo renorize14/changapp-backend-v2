@@ -18,8 +18,11 @@ public class User {
 	private String firstName;
     private String lastName;
     private String nickname;
+    private String birthdate;
 
-    @Column(unique = true, nullable = false)
+    
+
+	@Column(unique = true, nullable = false)
     private String email;
 
     @Column(nullable = false)
@@ -32,12 +35,22 @@ public class User {
     private boolean football7;
     private boolean football5;
 
-    @Lob
-    private String profilePictureBase64;
+    @Column(name = "profile_picture")
+    private String profilePicture;
 
     private String geoReference;
     
-    public Long getId() {
+    private Boolean isActive;
+    
+    public Boolean getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public Long getId() {
 		return id;
 	}
 
@@ -125,12 +138,12 @@ public class User {
 		this.football5 = football5;
 	}
 
-	public String getProfilePictureBase64() {
-		return profilePictureBase64;
+	public String getProfilePicture() {
+		return profilePicture;
 	}
 
-	public void setProfilePictureBase64(String profilePictureBase64) {
-		this.profilePictureBase64 = profilePictureBase64;
+	public void setProfilePicture(String profile_picture) {
+		this.profilePicture = profile_picture;
 	}
 
 	public String getGeoReference() {
@@ -139,5 +152,13 @@ public class User {
 
 	public void setGeoReference(String geoReference) {
 		this.geoReference = geoReference;
+	}
+	
+	public String getBirthdate() {
+		return birthdate;
+	}
+
+	public void setBirthdate(String birthdate) {
+		this.birthdate = birthdate;
 	}
 }

@@ -23,7 +23,6 @@ public class JwtService {
 
     private static final String SECRET_KEY = "4879823A492F4A504342442B2F7A244326A2A8A1926F7B6A0F142F4A5A4E2F4C";
 
-    // 1 día
     private static final long EXPIRATION_TIME = 86400000;
 
     public String extractUsername(String token) {
@@ -46,7 +45,7 @@ public class JwtService {
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(getSignInKey(), SignatureAlgorithm.HS256) // <- Esta línea es clave
+                .signWith(getSignInKey(), SignatureAlgorithm.HS256) 
                 .compact();
     }
 

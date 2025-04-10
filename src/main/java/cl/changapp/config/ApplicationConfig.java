@@ -17,7 +17,7 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public UserDetailsService userDetailsService() {
+    UserDetailsService userDetailsService() {
         return new UserDetailsServiceImpl(userRepository);
     }
 }

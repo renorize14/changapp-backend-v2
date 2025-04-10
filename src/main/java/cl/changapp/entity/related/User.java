@@ -19,6 +19,7 @@ public class User {
     private String lastName;
     private String nickname;
     private String birthdate;
+    private String authProvider;
 
     
 
@@ -160,5 +161,15 @@ public class User {
 
 	public void setBirthdate(String birthdate) {
 		this.birthdate = birthdate;
+	}
+
+	public void setAuthProvider(String authProvider) {
+		this.authProvider = authProvider;
+		
+	}
+	
+	public String getAuthProvider() {
+		return this.authProvider;
+		
 	}
 }

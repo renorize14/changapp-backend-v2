@@ -52,8 +52,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        jwt = authHeader.substring(7); // sin "Bearer "
-        userEmail = jwtService.extractUsername(jwt); // este debería sacar el email desde el token
+        jwt = authHeader.substring(7);
+        userEmail = jwtService.extractUsername(jwt);
 
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
@@ -66,7 +66,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 );
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 
-                // AQUI ESTÁ LA CLAVE
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }

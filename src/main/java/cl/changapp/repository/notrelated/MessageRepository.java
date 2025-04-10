@@ -14,4 +14,13 @@ public interface MessageRepository extends MongoRepository<Message, String> {
     );
 
     List<Message> findByReceiverIdAndReadFalse(Long receiverId);
+    
+    List<Message> findBySenderIdOrReceiverId(Long senderId, Long receiverId);
+    
+    List<Message> findBySenderIdAndReceiverIdOrReceiverIdAndSenderIdOrderByTimestampAsc(
+    	    Long sender1, Long receiver1, Long sender2, Long receiver2
+    	);
+    
+    long countByReceiverIdAndRead(Long receiverId, boolean read);
+    
 }

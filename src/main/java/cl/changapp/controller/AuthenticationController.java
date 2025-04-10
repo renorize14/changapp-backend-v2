@@ -1,9 +1,11 @@
 package cl.changapp.controller;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import cl.changapp.dto.AuthResponse;
 import cl.changapp.dto.LoginRequest;
@@ -16,7 +18,6 @@ public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
 
-    @Autowired
     public AuthenticationController(AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
     }

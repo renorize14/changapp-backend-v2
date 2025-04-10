@@ -12,7 +12,8 @@ import java.util.List;
 
 public class UserDetailsImpl implements UserDetails {
 
-    private final User user;
+	private static final long serialVersionUID = 1L;
+	private final User user;
 
     public UserDetailsImpl(User user) {
         this.user = user;
@@ -24,7 +25,6 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Si más adelante agregas roles, puedes retornar una lista de authorities aquí
     	return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
@@ -40,21 +40,21 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true; // puedes personalizarlo si implementas lógica de expiración
+        return true; 
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true; // puedes agregar bloqueo si lo necesitas
+        return true; 
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true; // puedes personalizarlo también
+        return true; 
     }
 
     @Override
     public boolean isEnabled() {
-        return true; // útil si manejas usuarios deshabilitados
+        return true;
     }
 }

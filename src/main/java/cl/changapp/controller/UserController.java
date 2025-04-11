@@ -12,6 +12,7 @@ import cl.changapp.dto.user.UserUpdateRequest;
 import cl.changapp.entity.related.User;
 import cl.changapp.service.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.websocket.server.PathParam;
 
 @RestController
 @RequestMapping("/api/users")
@@ -38,6 +39,13 @@ public class UserController {
     @GetMapping("/")
     public ResponseEntity<?> getProfile(@AuthenticationPrincipal UserDetails userDetails) {
         String email = userDetails.getUsername();
+        return userService.getUserProfile(email)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+    
+    @GetMapping("/email")
+    public ResponseEntity<?> getUserByEmail(@PathParam("email") String email) {
         return userService.getUserProfile(email)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

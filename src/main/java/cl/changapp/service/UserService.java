@@ -23,6 +23,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.UUID;
 import java.time.LocalDate;
 import java.time.Period;
@@ -34,6 +35,7 @@ public class UserService {
     private final UserRepository userRepository;
     private AccountClosureRepository closureRepository;
     private UserSportRepository uSportRep;
+    final static double EARTH_RADIUS = 6371.0;	
 
     @Autowired
     public UserService(UserRepository userRepository,AccountClosureRepository closureRepository, UserSportRepository uSportRep) {
@@ -165,8 +167,7 @@ public class UserService {
     	Double lon1 = Double.parseDouble(georeference.split(",")[1].toString());
     
     	for ( int i = 0 ; i < users.size() ; i ++ ) {
-    		if ( users.get(i).getId() != userId ) {
-    			System.out.println(users.get(i).getId() + ", " + userId);
+    		if ( users.get(i).getId() != userId && verifySportActivated(sport, users.get(i)) ) {
     			
     			Double lat2 = Double.parseDouble(users.get(i).getGeoReference().split(",")[0].toString());
 	        	Double lon2 = Double.parseDouble(users.get(i).getGeoReference().split(",")[1].toString());
@@ -176,7 +177,14 @@ public class UserService {
 	    			UserSport userSport = uSportRep.findByUserIdAndSportId(users.get(i).getId(), sport);
 	    			
 	    			if ( userSport != null ) {
-	    				closeUser.setGeoreference(users.get(i).getGeoReference());
+	    				
+	    				Float latitude = Float.parseFloat(users.get(i).getGeoReference().split(",")[0]);
+	    				Float longitude = Float.parseFloat(users.get(i).getGeoReference().split(",")[1]);
+	    				double[] coords = addRandomOffset(latitude,longitude,0.4);
+	    				
+	    				
+	    				
+	    				closeUser.setGeoreference(coords[0] + ", " + coords[1]);
 		    			closeUser.setNickname(users.get(i).getNickname());
 		    			closeUser.setId(users.get(i).getId());
 		    			closeUser.setPrimaryPosition(userSport.getPrimaryPosition());
@@ -196,8 +204,26 @@ public class UserService {
     	
     }
     
+    public boolean verifySportActivated(Long sport, User user) {
+    	if ( sport == 1 ) {
+    		return user.isFootball7();
+    	}
+    	else if ( sport == 2 ) {
+    		return user.isFootball5();
+    	}
+    	else if ( sport == 3 ) {
+    		return user.isBasketball();
+    	}
+    	else if ( sport == 4 ) {
+    		return user.isBasketball3x3();
+    	}
+    	else {
+    		return false;
+    	}
+    }
+    
     public double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
-    	final double EARTH_RADIUS = 6371.0;	
+    	
         double latDistance = Math.toRadians(lat2 - lat1);
         double lonDistance = Math.toRadians(lon2 - lon1);
 
@@ -213,6 +239,23 @@ public class UserService {
     public boolean isWithinRange(double lat1, double lon1, double lat2, double lon2, double radius) {
         double distance = calculateDistance(lat1, lon1, lat2, lon2);
         return distance <= radius;
+    }
+    
+    public static double[] addRandomOffset(double latitude, double longitude, double maxDistanceMeters) {
+        Random random = new Random();
+
+        double distance = random.nextDouble() * maxDistanceMeters;
+
+        double angle = random.nextDouble() * 2 * Math.PI;
+
+        double deltaLat = distance * Math.cos(angle) / EARTH_RADIUS;
+        double deltaLon = distance * Math.sin(angle) / (EARTH_RADIUS * Math.cos(Math.toRadians(latitude)));
+
+        // Convertimos de radianes a grados
+        double newLat = latitude + Math.toDegrees(deltaLat);
+        double newLon = longitude + Math.toDegrees(deltaLon);
+
+        return new double[]{newLat, newLon};
     }
     
     public static int calcularEdad(String fechaNacimientoStr) {

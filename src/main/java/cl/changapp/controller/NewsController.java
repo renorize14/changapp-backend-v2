@@ -3,6 +3,7 @@ package cl.changapp.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +33,7 @@ public class NewsController {
 	@GetMapping("/all")
     public List<News> getAllNews(@PathParam("lat") String lat, @PathParam("lon") String lon) {
     	try {
-    		List<News> news = newsRepository.findAll();
+    		List<News> news = newsRepository.findAll(Sort.by(Sort.Direction.DESC, "timestamp"));
     		List<News> finalNews = new ArrayList<>();
     		Double lat1 = Double.parseDouble(lat);
         	Double lon1 = Double.parseDouble(lon);

@@ -10,4 +10,5 @@ public interface ChatRequestRepository extends JpaRepository<ChatRequest, Long> 
     List<ChatRequest> findByRequesterId(Long requesterId);
     List<ChatRequest> findByRequestedIdAndStatus(Long receiverId, Boolean status);
     List<ChatRequest> findByRequesterIdAndRequestedId(Long requesterId, Long requestedId);
+    
 }

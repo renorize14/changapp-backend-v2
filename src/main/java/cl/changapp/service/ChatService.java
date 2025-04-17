@@ -5,7 +5,10 @@ import org.springframework.stereotype.Service;
 import java.util.stream.Stream;
 
 import cl.changapp.entity.notrelated.Message;
+import cl.changapp.entity.related.ChatRequest;
 import cl.changapp.repository.notrelated.MessageRepository;
+import cl.changapp.repository.related.ChatMessageRepository;
+import cl.changapp.repository.related.ChatRequestRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,9 +18,13 @@ import java.util.stream.Collectors;
 public class ChatService {
 
     private final MessageRepository messageRepository;
+    private final ChatRequestRepository crRep;
+    private final ChatMessageRepository cmRep;
 
-    public ChatService(MessageRepository messageRepository) {
+    public ChatService(MessageRepository messageRepository, ChatRequestRepository crRep,ChatMessageRepository cmRep) {
         this.messageRepository = messageRepository;
+        this.crRep = crRep;
+        this.cmRep = cmRep;
     }
 
     public Message sendMessage(Long senderId, Long receiverId, String content) {
@@ -65,5 +72,13 @@ public class ChatService {
     
     public long countUnreadMessages(Long receiverId) {
         return messageRepository.countByReceiverIdAndRead(receiverId, false);
+    }
+    
+    
+    public List<ChatRequest> getChatRequestsByRecieverId(Long recieverId){
+    	
+    	List<ChatRequest> requests = crRep.findByRequestedIdAndStatus(recieverId, true);
+    	
+    	return requests;
     }
 }

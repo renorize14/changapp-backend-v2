@@ -66,4 +66,9 @@ public class ChatRequestService {
 		}
         
     }
+    
+    public String deleteRequest(Long requestId) {
+    	chatRequestRepository.deleteById(requestId);
+    	return "success";
+    }
 }

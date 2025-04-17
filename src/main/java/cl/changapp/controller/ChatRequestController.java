@@ -66,4 +66,12 @@ public class ChatRequestController {
     public ResponseEntity<List<ChatRequest>> getPendingRequests(@PathVariable Long receiverId) {
         return ResponseEntity.ok(chatRequestService.getPendingRequestsForReceiver(receiverId));
     }
+    
+    @DeleteMapping("/{reqId}")
+    public ResponseEntity<String> deleteRequest(@PathVariable Long reqId) {
+        return ResponseEntity.ok(chatRequestService.deleteRequest(reqId));
+    }
+    
+    
+    
 }

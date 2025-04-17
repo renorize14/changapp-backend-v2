@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
+import cl.changapp.dto.PostResponse;
 import cl.changapp.entity.notrelated.News;
 import cl.changapp.repository.notrelated.NewsRepository;
+import cl.changapp.service.LikeService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.websocket.server.PathParam;
 
@@ -25,16 +27,18 @@ public class NewsController {
 	
 	final static double EARTH_RADIUS = 6371.0;	
 	private NewsRepository newsRepository;
+	private LikeService likeService;
 	
-	public NewsController(NewsRepository newsRepository) {
+	public NewsController(NewsRepository newsRepository, LikeService likeService) {
 		this.newsRepository = newsRepository;
+		this.likeService = likeService;
 	}
 	
 	@GetMapping("/all")
-    public List<News> getAllNews(@PathParam("lat") String lat, @PathParam("lon") String lon) {
+    public List<PostResponse> getAllNews(@PathParam("lat") String lat, @PathParam("lon") String lon) {
     	try {
     		List<News> news = newsRepository.findAll(Sort.by(Sort.Direction.DESC, "timestamp"));
-    		List<News> finalNews = new ArrayList<>();
+    		List<PostResponse> finalNews = new ArrayList<>();
     		Double lat1 = Double.parseDouble(lat);
         	Double lon1 = Double.parseDouble(lon);
     		
@@ -43,7 +47,21 @@ public class NewsController {
             	Double lon2 = Double.parseDouble(news.get(i).getGeoreference().split(",")[1].toString());
             	
             	if ( isWithinRange(lat1, lon1, lat2, lon2, 30) ) {
-            		finalNews.add(news.get(i));
+            		PostResponse post = new PostResponse();
+            		
+            		post.set_id(news.get(i).get_id());
+            		post.setActivo(news.get(i).getActivo());
+            		post.setBody(news.get(i).getBody());
+            		post.setGeoreference(news.get(i).getGeoreference());
+            		post.setImage_url(news.get(i).getImage_url());
+            		post.setNickname(news.get(i).getNickname());
+            		post.setSport(news.get(i).getSport());
+            		post.setTimestamp(news.get(i).getTimestamp());
+            		post.setTopic(news.get(i).getTopic());
+            		post.setUser_id(news.get(i).getUser_id());
+            		post.setLikesCount(likeService.getLikesCount(news.get(i).get_id()));
+            		post.setLikedByUser(likeService.hasUserLiked(news.get(i).get_id(), news.get(i).getUser_id() + ""));
+            		finalNews.add(post);
             	}
     			
     		}

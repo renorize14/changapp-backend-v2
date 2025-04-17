@@ -1,18 +1,8 @@
 package cl.changapp.controller;
 
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.stereotype.Controller;
-
-import cl.changapp.dto.ChatMessageDTO;
-import cl.changapp.dto.NotificationDTO;
-import cl.changapp.service.ChatService;
-
-@Controller
 public class ChatWebSocketController {
 	
-	private final ChatService chatService;
+	/*private final ChatService chatService;
 	private final SimpMessagingTemplate messagingTemplate;
 	
 	public ChatWebSocketController(SimpMessagingTemplate messagingTemplate, ChatService chatService) {
@@ -32,5 +22,5 @@ public class ChatWebSocketController {
 
         
         return message;
-    }
+    }*/
 }

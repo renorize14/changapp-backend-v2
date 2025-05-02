@@ -3,7 +3,7 @@ package cl.changapp.entity.related;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "chats")
+@Table(name = "chat")
 public class Chat {
 
     @Id

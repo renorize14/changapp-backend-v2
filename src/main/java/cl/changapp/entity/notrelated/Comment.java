@@ -13,6 +13,7 @@ public class Comment {
     private String postId;
     private String userId;
     private String userNickname;
+    private String profilePicture;
     private String body;
     private Date timestamp = new Date();
 
@@ -34,4 +35,10 @@ public class Comment {
 
     public Date getTimestamp() { return timestamp; }
     public void setTimestamp(Date timestamp) { this.timestamp = timestamp; }
+	public String getProfilePicture() {
+		return profilePicture;
+	}
+	public void setProfilePicture(String profilePicture) {
+		this.profilePicture = profilePicture;
+	}
 }

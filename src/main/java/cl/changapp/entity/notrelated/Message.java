@@ -15,6 +15,7 @@ public class Message {
     private String content;
     private LocalDateTime timestamp;
     private boolean read;
+    private Long chatId;
     
 	public String getId() {
 		return id;
@@ -51,6 +52,12 @@ public class Message {
 	}
 	public void setRead(boolean read) {
 		this.read = read;
+	}
+	public Long getChatId() {
+		return chatId;
+	}
+	public void setChatId(Long chatId) {
+		this.chatId = chatId;
 	}
 
     

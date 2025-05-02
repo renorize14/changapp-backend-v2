@@ -14,7 +14,7 @@ public class News {
     private String sport;
     private String topic;
     private String body;
-    private String image_url;
+    private String profilePicture;
     private Instant timestamp;
     private Boolean activo;
     private String georeference;
@@ -54,12 +54,12 @@ public class News {
         this.body = body;
     }
 
-    public String getImage_url() {
-        return image_url;
+    public String getProfilePicture() {
+        return profilePicture;
     }
 
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
+    public void setProfilePicture(String image_url) {
+        this.profilePicture = image_url;
     }
 
     public Instant getTimestamp() {

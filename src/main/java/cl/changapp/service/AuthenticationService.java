@@ -39,6 +39,7 @@ public class AuthenticationService {
         user.setLastName(request.getLastName());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setGeoReference(request.getGeoreference());
         userRepository.save(user);
 
         UserDetailsImpl userDetails = new UserDetailsImpl(user);

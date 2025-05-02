@@ -38,6 +38,7 @@ public class User {
     private boolean basketball3x3;
     private boolean football7;
     private boolean football5;
+    private boolean padel;
 
     @Column(name = "profile_picture")
     private String profilePicture;
@@ -174,5 +175,13 @@ public class User {
 	public String getAuthProvider() {
 		return this.authProvider;
 		
+	}
+
+	public boolean isPadel() {
+		return padel;
+	}
+
+	public void setPadel(boolean padel) {
+		this.padel = padel;
 	}
 }

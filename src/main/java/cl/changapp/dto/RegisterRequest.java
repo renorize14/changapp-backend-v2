@@ -7,15 +7,17 @@ public class RegisterRequest {
     private String lastName;
     private String email;
     private String password;
+    private String georeference;
 
     public RegisterRequest() {
     }
 
-    public RegisterRequest(String firstName, String lastName, String email, String password) {
+    public RegisterRequest(String firstName, String lastName, String email, String password, String georeference) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.georeference = georeference;
     }
 
     public String getFirstName() {
@@ -49,4 +51,12 @@ public class RegisterRequest {
     public void setPassword(String password) {
         this.password = password;
     }
+
+	public String getGeoreference() {
+		return georeference;
+	}
+
+	public void setGeoreference(String georeference) {
+		this.georeference = georeference;
+	}
 }

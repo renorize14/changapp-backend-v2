@@ -52,9 +52,7 @@ public class ChatRequestController {
         	messRep.save(newMessage);
         	
         	return ResponseEntity.status(HttpStatus.CREATED).body(request);
-        }
-        
-        
+        }        
     }
 
     @GetMapping("/sent/{senderId}")

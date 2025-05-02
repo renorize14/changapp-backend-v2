@@ -106,6 +106,8 @@ public class UserController {
     @PutMapping("/")
     public ResponseEntity<?> updateProfile(@AuthenticationPrincipal UserDetails userDetails,
                                            @RequestBody UserUpdateRequest request) {
+    	
+    	System.out.println(request.getProfilePhoto());
         String email = userDetails.getUsername();
         boolean updated = userService.updateUserProfile(email, request);
         if (updated) {

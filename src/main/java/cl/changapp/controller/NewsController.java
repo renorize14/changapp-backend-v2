@@ -53,7 +53,7 @@ public class NewsController {
             		post.setActivo(news.get(i).getActivo());
             		post.setBody(news.get(i).getBody());
             		post.setGeoreference(news.get(i).getGeoreference());
-            		post.setImage_url(news.get(i).getImage_url());
+            		post.setProfilePicture(news.get(i).getProfilePicture());
             		post.setNickname(news.get(i).getNickname());
             		post.setSport(news.get(i).getSport());
             		post.setTimestamp(news.get(i).getTimestamp());

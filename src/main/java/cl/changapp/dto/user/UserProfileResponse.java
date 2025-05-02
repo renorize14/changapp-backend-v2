@@ -12,6 +12,7 @@ public class UserProfileResponse {
     private boolean basketball3x3;
     private boolean football7;
     private boolean football5;
+    private boolean padel;
     private String birthdate;
     private String geoReference;
     private String profilePhoto;
@@ -93,6 +94,12 @@ public class UserProfileResponse {
 	}
 	public void setProfilePhoto(String profilePhoto) {
 		this.profilePhoto = profilePhoto;
+	}
+	public boolean isPadel() {
+		return padel;
+	}
+	public void setPadel(boolean padel) {
+		this.padel = padel;
 	}
 	
 

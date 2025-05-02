@@ -65,7 +65,7 @@ public class ChatMessage {
         return sentAt;
     }
 
-    public void setSentAt(LocalDateTime sentAt) {
-        this.sentAt = sentAt;
+    public void setSentAt(LocalDateTime instant) {
+        this.sentAt = instant;
     }
 }
